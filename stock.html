@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Advanced Promise Example</title>
+</head>
+
+<body>
+    <h1>JavaScript Advanced Promise Example</h1>
+    <div id="output"></div>
+
+    <script>
+        function checkStock(item) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    let inStock = Math.random() > 0.5; // Simulate checking stock
+                    if (inStock) {
+                        resolve(`Item ${item} is in stock.`);
+                    } else {
+                        reject(`Item ${item} is out of stock.`);
+                    }
+                }, 2000);
+            });
+        }
+
+        function processOrder(item) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    let processed = Math.random() > 0.5; // Simulate processing order
+                    if (processed) {
+                        resolve(`Order for ${item} has been processed.`);
+                    } else {
+                        reject(`Order for ${item} could not be processed.`);
+                    }
+                }, 2000);
+            });
+        }
+
+        let item = "Widget";
+        checkStock(item)
+            .then(message => {
+                document.getElementById('output').innerHTML = `<p>${message}</p>`;
+                return processOrder(item);
+            })
+            .then(message => {
+                document.getElementById('output').innerHTML += `<p>${message}</p>`;
+            })
+            .catch(error => {
+                document.getElementById('output').innerHTML = `<p>${error}</p>`;
+            });
+    </script>
+
+</body>
+
+</html>
